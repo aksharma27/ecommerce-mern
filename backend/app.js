@@ -34,8 +34,22 @@ app.use(errorMiddleware);
 
 
 
-app.listen(3000, ()=>{
+
+
+const server = app.listen(3000, ()=>{
     console.log(`Server listening on ${process.env.PORT}`); 
 })
+
+//Unhandled Promise Rejection => wrong server credentials like db strings, wrong pass of dp etc.. then crash the server asap
+process.on('unhandledRejection', (err) => { 
+    console.log(`Error: ${err.message}`);
+    console.log(`Shutting down server due to unhandled promise rejection`);
+
+    server.close(()=>{
+        process.exit(1);
+    })
+});
+
+
 
 module.exports = app; 

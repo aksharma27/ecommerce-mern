@@ -8,9 +8,6 @@ const connect = (DB) => {
         {useNewUrlParser: true, useUnifiedTopology: true}).then((data)=>
             {
         console.log(`successfylly db connected : ${data.connection.host} ` );
-    }).catch((err)=>
-    {
-        console.log('Error: ' + err);
     })
 }
 
