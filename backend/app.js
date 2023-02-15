@@ -1,4 +1,5 @@
 const express = require('express');
+const errorMiddleware = require('./middlewares/error'); 
 // const dotenv = require('dotenv');
 //Config
 // dotenv.config({path:'../backend/config/config.env'});
@@ -25,6 +26,9 @@ app.get('/home', (req, res)=>{
     res.send("Home api");
     console.log("success");
 });
+
+//Middleware for error
+app.use(errorMiddleware);
 
 
 
