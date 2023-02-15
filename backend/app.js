@@ -10,6 +10,14 @@ const connectDB = require("./config/db");
 const app = express();
 app.use(express.json());
 
+//Handeling uncaught exceptions
+process.on("uncaughtException", (err) => {
+    console.log(`Error: ${err.message}`);
+    console.log(`Shutting down server due to Uncaught Exception`);
+    process.exit(1);
+});
+
+
 
 //connect db
 connectDB(DB);
