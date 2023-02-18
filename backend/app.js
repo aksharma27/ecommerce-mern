@@ -24,16 +24,14 @@ connectDB(DB);
 
 //Routes imports
 const product = require('./routes/productRoute');
+const user = require('./routes/userRoute');
 
 
 
 
 
 app.use('/api/v1', product);
-app.get('/home', (req, res)=>{
-    res.send("Home api");
-    console.log("success");
-});
+app.use('/api/v1', user);
 
 //Middleware for error
 app.use(errorMiddleware);
