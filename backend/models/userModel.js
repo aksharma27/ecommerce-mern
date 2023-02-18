@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs");
 const mongoose = require('mongoose');
 const validator = require('validator');
@@ -48,6 +49,14 @@ userSchema.pre("save", async function(next){        //cannot use  this keyword i
         next();
     }
     this.password = await bcrypt.hash(this.password, 10);
-})
+});
+
+
+//JWT TOKE -> user created -> instantly signin 
+userSchema.methods.getJWTToken = function(){
+    return jwt.sign({id: this._id}, process.env.JWT_SECRET || "ALKDFJEIAJF" ,{      //generate secret key 
+        expiresIn: process.env.JWT_EXPIRE || "5d",  //expires in some time, so logouts when inactive
+    });
+}
 
 module.exports = mongoose.model("User", userSchema);
